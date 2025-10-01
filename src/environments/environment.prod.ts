@@ -5,4 +5,5 @@
  */
 export const environment = {
   production: true,
+  baseUrl: "https://appbackend.tenderely.com",
 };
