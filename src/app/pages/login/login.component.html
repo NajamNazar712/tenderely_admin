@@ -1,0 +1,21 @@
+<nb-layout>
+  <nb-layout-column class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <nb-card style="width: 400px;">
+      <nb-card-header>Login</nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+          <div class="mb-3">
+            <input nbInput fullWidth placeholder="Email"
+                   [(ngModel)]="email" name="email" required />
+          </div>
+          <div class="mb-3">
+            <input nbInput fullWidth type="password" placeholder="Password"
+                   [(ngModel)]="password" name="password" required />
+          </div>
+          <button nbButton fullWidth status="primary" [disabled]="loginForm.invalid">Login</button>
+          <p *ngIf="error" class="text-danger mt-2">{{ error }}</p>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

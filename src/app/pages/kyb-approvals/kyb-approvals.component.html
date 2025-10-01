@@ -1,0 +1,16 @@
+<nb-card>
+  <nb-card-header class="header-wrap">
+    <div class="title">KYB Approvals</div>
+    <div class="hint">Pending documents awaiting review</div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-spinner *ngIf="loading" size="large"></nb-spinner>
+
+    <ng2-smart-table
+      *ngIf="!loading"
+      [settings]="settings"
+      [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

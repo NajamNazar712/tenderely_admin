@@ -1,0 +1,97 @@
+<!-- Add Category -->
+<nb-card>
+  <nb-card-header>Add Category</nb-card-header>
+  <nb-card-body>
+    <div class="row g-3">
+      <!-- Module -->
+      <div class="col-md-4">
+        <label class="form-label">Module</label>
+        <nb-select fullWidth placeholder="Select module" [formControl]="catForm.get('modelName')">
+          <nb-option *ngFor="let m of modelTypes" [value]="(m.typeName)">
+            {{m.typeName }}
+          </nb-option>
+        </nb-select>
+      </div>
+
+      <!-- Category Name -->
+      <div class="col-md-6">
+        <label class="form-label">Category Name</label>
+        <input nbInput fullWidth placeholder="e.g. Plumbing" [formControl]="catForm.get('categoryName')" />
+      </div>
+
+      <div class="col-md-2 d-flex align-items-end">
+        <button nbButton status="primary" (click)="createCategory()"
+                [disabled]="catForm.invalid">ADD</button>
+      </div>
+    </div>
+
+    <!-- Existing categories for selected module -->
+    <hr class="my-4" />
+    <h6 class="mb-2">Categories</h6>
+
+    <ng-container *ngIf="catForm.get('modelName')?.value; else pickModuleForCats">
+      <ng-container *ngIf="!loadingCatsForCatForm; else catsLoading">
+        <ng-container *ngIf="categoriesForCatForm.length; else noCats">
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let c of categoriesForCatForm">• {{ c.categoryName }}</li>
+          </ul>
+        </ng-container>
+        <ng-template #noCats><small class="text-muted">No categories yet for this module.</small></ng-template>
+      </ng-container>
+      <ng-template #catsLoading><small class="text-muted">Loading categories…</small></ng-template>
+    </ng-container>
+
+    <ng-template #pickModuleForCats>
+      <small class="text-muted">Pick a module to see its categories.</small>
+    </ng-template>
+  </nb-card-body>
+</nb-card>
+
+
+<nb-card class="mt-4">
+  <nb-card-header>Add Subcategory</nb-card-header>
+  <nb-card-body>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">Module</label>
+        <nb-select fullWidth placeholder="Select module" [formControl]="subForm.get('modelName')">
+          <nb-option *ngFor="let m of modelTypes" [value]="(m.typeName)">{{ m.typeName}}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Category</label>
+        <nb-select fullWidth placeholder="Select category"
+                   [disabled]="!subForm.get('modelName')?.value || loadingCats"
+                   [formControl]="subForm.get('categoryId')">
+          <nb-option *ngFor="let c of categories" [value]="c._id">{{ c.categoryName }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Subcategory Name</label>
+        <input nbInput fullWidth placeholder="e.g. Pipe Fix" [formControl]="subForm.get('subCategoryName')" />
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button nbButton status="primary" (click)="createSubCategory()" [disabled]="loadingSubs">Add</button>
+    </div>
+
+    <hr class="my-4" />
+
+    <div>
+      <h6 class="mb-2">Subcategories</h6>
+      <ng-container *ngIf="subForm.get('categoryId')?.value; else chooseCat">
+        <ul class="list-unstyled mb-0">
+          <li *ngFor="let s of subcategories">
+            • {{ s.subCategoryName }}
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #chooseCat>
+        <small class="text-muted">Choose a category to see its subcategories.</small>
+      </ng-template>
+    </div>
+  </nb-card-body>
+</nb-card>

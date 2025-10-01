@@ -1,0 +1,38 @@
+.header-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.hint {
+  color: var(--text-hint-color);
+}
+
+.action-link {
+  cursor: pointer;
+  margin: 0 6px;
+}
+
+.action-link.success {
+  color: var(--success);
+}
+
+.action-link.danger {
+  color: var(--danger);
+}
+
+:host ::ng-deep ng2-smart-table table td.ng2-smart-actions {
+  white-space: nowrap;
+}
+
+:host ::ng-deep ng2-smart-table table td.ng2-smart-actions a {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 18px; /* smaller/larger as you like */
+}
